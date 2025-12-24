@@ -8,6 +8,11 @@ export const useCartStore = defineStore("cart", {
     // นับจำนวน "ชิ้น" รวมทั้งหมด
     totalQuantity: (state) =>
       state.cartItems.reduce((total, item) => total + item.quantity, 0),
+    totalValue: (state) => {
+      return state.cartItems.reduce((total, item) => {
+        return total + item.price * item.quantity;
+      }, 0);
+    },
   },
   actions: {
     addToCart(product) {
@@ -21,6 +26,9 @@ export const useCartStore = defineStore("cart", {
         // If not, add the new product with a quantity of 1
         this.cartItems.push({ ...product, quantity: 1 });
       }
+    },
+    removeFromCart(productId) {
+      this.cartItems = this.cartItems.filter((item) => item.id !== productId);
     },
   },
 });
