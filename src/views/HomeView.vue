@@ -1,5 +1,8 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import { useCartStore } from "@/stores/cart";
+
+const cartStore = useCartStore();
 
 const products = ref([]);
 const isLoading = ref(true);
@@ -30,7 +33,7 @@ onMounted(() => {
         <img :src="item.image" :alt="item.title" class="product-img" />
         <h3>{{ item.title }}</h3>
         <p class="price">${{ item.price }}</p>
-        <button>เพิ่มลงตะกร้า</button>
+        <button @click="cartStore.addToCart(item)">เพิ่มลงตะกร้า</button>
       </div>
     </div>
   </div>
